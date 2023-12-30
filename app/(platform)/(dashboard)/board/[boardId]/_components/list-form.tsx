@@ -1,8 +1,8 @@
 "use client";
 
+import { ElementRef, useRef, useState } from "react";
 import { Plus, X } from "lucide-react";
 import { ListWrapper } from "./list-wrapper";
-import { ElementRef, useRef, useState } from "react";
 import { useEventListener, useOnClickOutside } from "usehooks-ts";
 import { FormInput } from "@/components/form/form-input";
 import { useParams, useRouter } from "next/navigation";
@@ -11,11 +11,9 @@ import { Button } from "@/components/ui/button";
 import { useAction } from "@/hooks/use-action";
 import { createList } from "@/actions/create-list";
 import { toast } from "sonner";
-import { error } from "console";
-
 
 export const ListForm = () => {
-  const router = useRouter()
+  const router = useRouter();
   const params = useParams();
   const [isEditing, setIsEditing] = useState(false);
 
@@ -35,14 +33,14 @@ export const ListForm = () => {
 
   const { execute, fieldErrors } = useAction(createList, {
     onSuccess: (data) => {
-      toast.success(`List "${data.title}" create`)
+      toast.success(`List "${data.title}" create`);
       disableEditing();
-      router.refresh()
+      router.refresh();
     },
     onError: (error) => {
       toast.error(error);
-    }
-  })
+    },
+  });
 
   const onKeyDown = (e: KeyboardEvent) => {
     if (e.key === "Escape") {
@@ -59,9 +57,9 @@ export const ListForm = () => {
 
     execute({
       title,
-      boardId
-    })
-  }
+      boardId,
+    });
+  };
   if (isEditing) {
     return (
       <ListWrapper>
